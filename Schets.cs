@@ -4,6 +4,7 @@ using System.Diagnostics.Tracing;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 public class Schets
 {
@@ -44,10 +45,10 @@ public class Schets
     {
         bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
     }
-    public void Exporteren()
+    public string Exporteren()
     {
         SaveFileDialog dialog = new SaveFileDialog();
-        dialog.Filter = "Png|*.png|Jpg|*.jpg|Txt|*.txt|Bmp|*.bmp";
+        dialog.Filter = "Png|*.png|Jpg|*.jpg|Bmp|*.bmp|Txt|*.txt";
         dialog.DefaultExt = "png";
         dialog.AddExtension = true;
         if (dialog.ShowDialog()==DialogResult.OK)
@@ -55,6 +56,9 @@ public class Schets
             string Filename = dialog.FileName;
             FileStream Filestream = new FileStream(Filename, FileMode.CreateNew);
             bitmap.Save(Filestream, System.Drawing.Imaging.ImageFormat.Jpeg);
+            FileInfo fi = new FileInfo(Filename);
+            return fi.Name;
         }
+        return "";
     }
 }

@@ -56,7 +56,12 @@ public class SchetsControl : UserControl
     }
     public void Exporteren(object o, EventArgs ea)
     {   
-        schets.Exporteren();
+        string naam = schets.Exporteren();
+        MessageBox.Show ( $"De bitmap is geëxporteerd als {naam}"
+                        , "Geëxporteerd"
+                        , MessageBoxButtons.OK
+                        , MessageBoxIcon.Information
+                        );
         this.Invalidate();
     }
 }
