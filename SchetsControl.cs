@@ -7,6 +7,7 @@ public class SchetsControl : UserControl
 {   
     private Schets schets;
     private Color penkleur;
+    //public Color customkleur;
 
     public Color PenKleur
     { get { return penkleur; }
@@ -48,12 +49,28 @@ public class SchetsControl : UserControl
     }
     public void VeranderKleur(object obj, EventArgs ea)
     {   string kleurNaam = ((ComboBox)obj).Text;
-        penkleur = Color.FromName(kleurNaam);
+        if(kleurNaam != "Custom")
+        {
+            penkleur = Color.FromName(kleurNaam);
+        }
+        else
+        {
+            penkleur = Schets.kleurcustom;
+        }
     }
     public void VeranderKleurViaMenu(object obj, EventArgs ea)
     {   string kleurNaam = ((ToolStripMenuItem)obj).Text;
         penkleur = Color.FromName(kleurNaam);
     }
+
+    public void CustomKleur(object o, EventArgs ea)
+    {   
+        schets.CustomKleur();
+        schets.kleurcustom = Color.FromName("Yellow");
+        this.Invalidate();
+    }
+
+
     public void Exporteren(object o, EventArgs ea)
     {   
         schets.Exporteren();
