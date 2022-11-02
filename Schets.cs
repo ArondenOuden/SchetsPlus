@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
 
 public class Schets
 {
@@ -8,6 +11,7 @@ public class Schets
         
     public Schets()
     {
+        
         bitmap = new Bitmap(1, 1);
     }
     public Graphics BitmapGraphics
@@ -40,13 +44,17 @@ public class Schets
     {
         bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
     }
-    public void Opslaan()
+    public void Exporteren()
     {
-        bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
-        //SaveFileDialog dialog = new SaveFileDialog();
-        //if (dialog.ShowDialog()==DialogResult.OK)
-        //{
-           //bitmap.Save(dialog.FileName, ImageFormat.Jpeg);
-        //}
+        SaveFileDialog dialog = new SaveFileDialog();
+        dialog.Filter = "Png|*.png|Jpg|*.jpg|Txt|*.txt|Bmp|*.bmp";
+        dialog.DefaultExt = "png";
+        dialog.AddExtension = true;
+        if (dialog.ShowDialog()==DialogResult.OK)
+        {
+            string Filename = dialog.FileName;
+            FileStream Filestream = new FileStream(Filename, FileMode.CreateNew);
+            bitmap.Save(Filestream, System.Drawing.Imaging.ImageFormat.Jpeg);
+        }
     }
 }

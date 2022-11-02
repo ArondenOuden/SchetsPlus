@@ -167,9 +167,9 @@ public class SchetsWin : Form
             cbb.Items.Add(k);
         cbb.SelectedIndex = 0;
                 
-        Button opslaan = new Button(); paneel.Controls.Add(opslaan);
-        opslaan.Text = "Opslaan"; 
-        opslaan.Location = new Point( 400, 0); 
-        opslaan.Click += schetscontrol.Opslaan; 
+        Button exporteren = new Button(); paneel.Controls.Add(exporteren);
+        exporteren.Text = "Exporteren"; 
+        exporteren.Location = new Point( 400, 0); 
+        exporteren.Click += schetscontrol.Exporteren; 
     }
 }

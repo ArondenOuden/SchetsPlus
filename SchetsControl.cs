@@ -26,7 +26,7 @@ public class SchetsControl : UserControl
     }
     private void teken(object o, PaintEventArgs pea)
     {   schets.Teken(pea.Graphics);
-        Console.WriteLine("teken teken")
+        Console.WriteLine("teken teken");
     }
     private void veranderAfmeting(object o, EventArgs ea)
     {   schets.VeranderAfmeting(this.ClientSize);
@@ -54,9 +54,9 @@ public class SchetsControl : UserControl
     {   string kleurNaam = ((ToolStripMenuItem)obj).Text;
         penkleur = Color.FromName(kleurNaam);
     }
-    public void Opslaan(object o, EventArgs ea)
-    {   schets.VeranderAfmeting(new Size(this.ClientSize.Height, this.ClientSize.Width));
-        schets.Roteer();
+    public void Exporteren(object o, EventArgs ea)
+    {   
+        schets.Exporteren();
         this.Invalidate();
     }
 }
