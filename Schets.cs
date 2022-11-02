@@ -45,7 +45,7 @@ public class Schets
     {
         bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
     }
-    public string Exporteren()
+    public void Exporteren()
     {
         SaveFileDialog dialog = new SaveFileDialog();
         dialog.Filter = "Png|*.png|Jpg|*.jpg|Bmp|*.bmp|Txt|*.txt";
@@ -57,8 +57,12 @@ public class Schets
             FileStream Filestream = new FileStream(Filename, FileMode.CreateNew);
             bitmap.Save(Filestream, System.Drawing.Imaging.ImageFormat.Jpeg);
             FileInfo fi = new FileInfo(Filename);
-            return fi.Name;
+            string naam = fi.Name;
+            MessageBox.Show ( $"De bitmap is geëxporteerd als {naam}"
+                        , "Geëxporteerd"
+                        , MessageBoxButtons.OK
+                        , MessageBoxIcon.Information
+                        );
         }
-        return "";
     }
 }
