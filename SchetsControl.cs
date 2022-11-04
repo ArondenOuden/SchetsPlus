@@ -26,29 +26,35 @@ public class SchetsControl : UserControl
     {
     }
     private void teken(object o, PaintEventArgs pea)
-    {   schets.Teken(pea.Graphics);
+    {   
+        schets.Teken(pea.Graphics);
         Console.WriteLine("teken teken");
     }
     private void veranderAfmeting(object o, EventArgs ea)
-    {   schets.VeranderAfmeting(this.ClientSize);
+    {   
+        schets.VeranderAfmeting(this.ClientSize);
         this.Invalidate();
     }
     public Graphics MaakBitmapGraphics()
-    {   Graphics g = schets.BitmapGraphics;
+    {  
+        Graphics g = schets.BitmapGraphics;
         g.SmoothingMode = SmoothingMode.AntiAlias;
         return g;
     }
     public void Schoon(object o, EventArgs ea)
-    {   schets.Schoon();
+    {   
+        schets.Schoon();
         this.Invalidate();
     }
     public void Roteer(object o, EventArgs ea)
-    {   schets.VeranderAfmeting(new Size(this.ClientSize.Height, this.ClientSize.Width));
+    {   
+        schets.VeranderAfmeting(new Size(this.ClientSize.Height, this.ClientSize.Width));
         schets.Roteer();
         this.Invalidate();
     }
     public void VeranderKleur(object obj, EventArgs ea)
-    {   string kleurNaam = ((ComboBox)obj).Text;
+    {   
+        string kleurNaam = ((ComboBox)obj).Text;
         if(kleurNaam != "Custom")
         {
             penkleur = Color.FromName(kleurNaam);
@@ -62,7 +68,8 @@ public class SchetsControl : UserControl
         }
     }
     public void VeranderKleurViaMenu(object obj, EventArgs ea)
-    {   string kleurNaam = ((ToolStripMenuItem)obj).Text;
+    {   
+        string kleurNaam = ((ToolStripMenuItem)obj).Text;
         penkleur = Color.FromName(kleurNaam);
     }
 

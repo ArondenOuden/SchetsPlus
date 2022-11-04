@@ -8,6 +8,8 @@ using System.Windows.Forms.VisualStyles;
 
 public class Schets
 {
+    public List<Type> DrawObjects = new List<Type>();
+
     private Bitmap bitmap;   
     public Schets()
     {
@@ -15,7 +17,10 @@ public class Schets
     }
     public Graphics BitmapGraphics
     {
-        get { return Graphics.FromImage(bitmap); }
+        get 
+        { 
+            return Graphics.FromImage(bitmap); 
+        }
     }
     public void VeranderAfmeting(Size sz)
     {
