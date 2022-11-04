@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
 public interface ISchetsTool
 {
@@ -10,8 +11,37 @@ public interface ISchetsTool
     void Letter(SchetsControl s, char c);
 }
 
+/*public abstract class SketchTool : ISchetsTool
+{
+    public const int NoObject = -1;
+    protected DrawObject obj = null;
+
+    public virtual void MuisVast(SchetsControl s, Point p, MouseButtons b)
+    {
+        obj.color= s.PenKleur;
+        s.Objects.Add(obj);
+    }
+
+    public virtual void MuisDrag(SchetsControl s, Point p)
+    {
+        s.Refresh();
+    }
+
+    public virtual void MuisLos(SchetsControl s, Point p)
+    {
+        s.Refresh();
+    }
+
+    public virtual void Letter(SchetsControl s, char c)
+    {
+        s.Refresh();
+    }
+}*/
+
+
 public abstract class StartpuntTool : ISchetsTool
 {
+
     protected Point startpunt;
     protected Brush kwast;
 

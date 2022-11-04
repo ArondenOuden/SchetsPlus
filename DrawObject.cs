@@ -7,12 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-public abstract class DrawObjects
+public abstract class DrawObject
 {
     public Color color = Color.Black;
     public int width = 2;
 
-    public DrawObjects()
+    public DrawObject()
     {
 
     }
@@ -33,7 +33,7 @@ public abstract class DrawObjects
     public abstract void Draw(Graphics g);
     public abstract void Move(int dx, int dy);
 }
-public abstract class StartPointObject : DrawObjects
+public abstract class StartPointObject : DrawObject
 {
     public Point startPoint;
 

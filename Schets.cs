@@ -8,7 +8,7 @@ using System.Windows.Forms.VisualStyles;
 
 public class Schets
 {
-    public List<Type> DrawObjects = new List<Type>();
+    public List<DrawObject> objects = new List<DrawObject>();
 
     private Bitmap bitmap;   
     public Schets()
@@ -37,12 +37,18 @@ public class Schets
     }
     public void Teken(Graphics gr)
     {
+        BitmapGraphics.Clear(Color.White);
+        foreach(DrawObject d in objects)
+        {
+            d.Draw(BitmapGraphics);
+        }
         gr.DrawImage(bitmap, 0, 0);
     }
     public void Schoon()
     {
-        Graphics gr = Graphics.FromImage(bitmap);
-        gr.FillRectangle(Brushes.White, 0, 0, bitmap.Width, bitmap.Height);
+        objects.Clear();
+        /*Graphics gr = Graphics.FromImage(bitmap);
+        gr.FillRectangle(Brushes.White, 0, 0, bitmap.Width, bitmap.Height);*/
     }
     public void Roteer()
     {

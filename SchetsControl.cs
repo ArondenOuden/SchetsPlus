@@ -10,13 +10,33 @@ public class SchetsControl : UserControl
     public ColorDialog colorDialog = new ColorDialog();
 
     public Color PenKleur
-    { get { return penkleur; }
+    { 
+        get 
+        { 
+            return penkleur; 
+        }
     }
+    /*public UndoList<DrawObject> Objecten
+    {
+        get
+        {
+            return schets.objects;
+        }
+        set
+        {
+            schets.objects = value;
+        }
+    }*/
     public Schets Schets
-    { get { return schets;   }
+    { 
+        get 
+        { 
+            return schets;
+        }
     }
     public SchetsControl()
-    {   this.BorderStyle = BorderStyle.Fixed3D;
+    {   
+        this.BorderStyle = BorderStyle.Fixed3D;
         this.schets = new Schets();
         this.Paint += this.teken;
         this.Resize += this.veranderAfmeting;
