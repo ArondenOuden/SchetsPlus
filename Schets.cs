@@ -8,12 +8,9 @@ using System.Windows.Forms.VisualStyles;
 
 public class Schets
 {
-    private Bitmap bitmap;
-    public ColorDialog colorDialog = new ColorDialog();
-    public Color kleurcustom;    
+    private Bitmap bitmap;   
     public Schets()
     {
-        //kleurcustom = Color.FromName("Red");
         bitmap = new Bitmap(1, 1);
     }
     public Graphics BitmapGraphics
@@ -64,16 +61,6 @@ public class Schets
                         , MessageBoxButtons.OK
                         , MessageBoxIcon.Information
                         );
-        }
-    }
-    public void CustomKleur()
-    {
-        //colorDialog.AllowFullOpen = true;
-        //colorDialog.AnyColor = false;
-        if (colorDialog.ShowDialog() == DialogResult.OK)
-        {
-            //kleurcustom = colorDialog.Color;
-            kleurcustom = Color.FromName("Blue");
         }
     }
 }

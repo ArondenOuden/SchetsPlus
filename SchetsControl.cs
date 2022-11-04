@@ -7,7 +7,7 @@ public class SchetsControl : UserControl
 {   
     private Schets schets;
     private Color penkleur;
-    //public Color customkleur;
+    public ColorDialog colorDialog = new ColorDialog();
 
     public Color PenKleur
     { get { return penkleur; }
@@ -55,21 +55,16 @@ public class SchetsControl : UserControl
         }
         else
         {
-            penkleur = Schets.kleurcustom;
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                penkleur = colorDialog.Color;
+            }
         }
     }
     public void VeranderKleurViaMenu(object obj, EventArgs ea)
     {   string kleurNaam = ((ToolStripMenuItem)obj).Text;
         penkleur = Color.FromName(kleurNaam);
     }
-
-    public void CustomKleur(object o, EventArgs ea)
-    {   
-        schets.CustomKleur();
-        schets.kleurcustom = Color.FromName("Yellow");
-        this.Invalidate();
-    }
-
 
     public void Exporteren(object o, EventArgs ea)
     {   

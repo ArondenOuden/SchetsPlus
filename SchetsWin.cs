@@ -45,7 +45,7 @@ public class SchetsWin : Form
                                 , new TekstTool()
                                 , new GumTool()
                                 };
-        String[] deKleuren = {"Custom", "Black", "Red", "Green", "Blue", "Yellow", "Magenta", "Cyan"};
+        String[] deKleuren = {"Black", "Red", "Green", "Blue", "Yellow", "Magenta", "Cyan", "Custom"};
 
         this.ClientSize = new Size(700, 500);
         huidigeTool = deTools[0];
@@ -166,11 +166,6 @@ public class SchetsWin : Form
         foreach (string k in kleuren)
             cbb.Items.Add(k);
         cbb.SelectedIndex = 0;
-
-        Button customkleur = new Button(); paneel.Controls.Add(customkleur);
-        customkleur.Text = "Custom"; 
-        customkleur.Location = new Point( 380, 0); 
-        customkleur.Click += schetscontrol.CustomKleur; 
                 
         Button exporteren = new Button(); paneel.Controls.Add(exporteren);
         exporteren.Text = "Exporteren"; 
