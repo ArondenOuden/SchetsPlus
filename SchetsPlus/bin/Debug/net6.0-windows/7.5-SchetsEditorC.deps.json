@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "7.5-SchetsEditorC/1.0.0": {
+        "runtime": {
+          "7.5-SchetsEditorC.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "7.5-SchetsEditorC/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
