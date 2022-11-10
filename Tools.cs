@@ -180,7 +180,7 @@ public class RechthoekTool : TweepuntTool
     }*/
 }
     
-public class VolRechthoekTool : RechthoekTool
+public class VolRechthoekTool : TweepuntTool
 {
     public override string ToString() 
     { 
@@ -214,7 +214,7 @@ public class OvaalTool : TweepuntTool
     }*/
 }
     
-public class VolOvaalTool : OvaalTool
+public class VolOvaalTool : TweepuntTool
 {
     public override string ToString() { return "ovlak"; }
 

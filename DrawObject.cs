@@ -84,7 +84,7 @@ public abstract class TwoPointObject : StartPointObject
     {
         get
         {
-            return new Rectangle(new Point(Math.Min(startPoint.X, endPoint.X), Math.Min(startPoint.X, endPoint.X)),
+            return new Rectangle(new Point(Math.Min(startPoint.X, endPoint.X), Math.Min(startPoint.Y, endPoint.Y)),
                                 new Size(Math.Abs(startPoint.X - endPoint.X), Math.Abs(startPoint.Y - endPoint.Y)));
         }
     }
@@ -107,7 +107,7 @@ public class RectangleObject : TwoPointObject
     }
 }
 
-public class FilledRectangleObject : TwoPointObject
+public class FilledRectangleObject : RectangleObject
 {
     public override void Draw(Graphics g)
     {

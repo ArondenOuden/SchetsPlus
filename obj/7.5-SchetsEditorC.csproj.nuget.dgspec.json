@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\geert\\Source\\Repos\\SchetsPluss\\7.5-SchetsEditorC.csproj": {}
+    "C:\\Users\\Geert\\Source\\Repos\\SchetsPlus\\7.5-SchetsEditorC.csproj": {}
   },
   "projects": {
-    "C:\\Users\\geert\\Source\\Repos\\SchetsPluss\\7.5-SchetsEditorC.csproj": {
+    "C:\\Users\\Geert\\Source\\Repos\\SchetsPlus\\7.5-SchetsEditorC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\geert\\Source\\Repos\\SchetsPluss\\7.5-SchetsEditorC.csproj",
+        "projectUniqueName": "C:\\Users\\Geert\\Source\\Repos\\SchetsPlus\\7.5-SchetsEditorC.csproj",
         "projectName": "7.5-SchetsEditorC",
-        "projectPath": "C:\\Users\\geert\\Source\\Repos\\SchetsPluss\\7.5-SchetsEditorC.csproj",
-        "packagesPath": "C:\\Users\\geert\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\geert\\Source\\Repos\\SchetsPluss\\obj\\",
+        "projectPath": "C:\\Users\\Geert\\Source\\Repos\\SchetsPlus\\7.5-SchetsEditorC.csproj",
+        "packagesPath": "C:\\Users\\Geert\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Geert\\Source\\Repos\\SchetsPlus\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\geert\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Geert\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -62,7 +58,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
