@@ -16,7 +16,8 @@ public class SchetsControl : UserControl
             return penkleur; 
         }
     }
-    /*public UndoList<DrawObject> Objecten
+
+    /*public DrawObject Objects
     {
         get
         {
@@ -27,6 +28,7 @@ public class SchetsControl : UserControl
             schets.objects = value;
         }
     }*/
+
     public Schets Schets
     { 
         get 

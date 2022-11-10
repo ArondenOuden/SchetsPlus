@@ -53,21 +53,25 @@ public class SchetsWin : Form
         schetscontrol = new SchetsControl();
         schetscontrol.Location = new Point(64, 10);
         schetscontrol.MouseDown += (object o, MouseEventArgs mea) =>
-                                    {   vast=true;  
-                                        huidigeTool.MuisVast(schetscontrol, mea.Location); 
-                                    };
+        {   
+            vast=true;  
+            huidigeTool.MuisVast(schetscontrol, mea.Location, mea.Button); 
+        };
         schetscontrol.MouseMove += (object o, MouseEventArgs mea) =>
-                                    {   if (vast)
-                                        huidigeTool.MuisDrag(schetscontrol, mea.Location); 
-                                    };
+        {   
+            if (vast)
+            huidigeTool.MuisDrag(schetscontrol, mea.Location); 
+        };
         schetscontrol.MouseUp   += (object o, MouseEventArgs mea) =>
-                                    {   if (vast)
-                                        huidigeTool.MuisLos (schetscontrol, mea.Location);
-                                        vast = false; 
-                                    };
+        {   
+            if (vast)
+            huidigeTool.MuisLos (schetscontrol, mea.Location);
+            vast = false; 
+        };
         schetscontrol.KeyPress +=  (object o, KeyPressEventArgs kpea) => 
-                                    {   huidigeTool.Letter  (schetscontrol, kpea.KeyChar); 
-                                    };
+        {   
+            huidigeTool.Letter  (schetscontrol, kpea.KeyChar); 
+        };
         this.Controls.Add(schetscontrol);
 
         menuStrip = new MenuStrip();

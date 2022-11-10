@@ -33,6 +33,27 @@ public abstract class DrawObject
     public abstract void Draw(Graphics g);
     public abstract void Move(int dx, int dy);
 }
+
+public class PenObject : DrawObject
+{
+    public List<LineObject> lines = new List<LineObject>();
+
+    public override void Draw(Graphics g)
+    {
+        foreach(LineObject line in lines)
+        {
+            line.Draw(g);
+        }
+    }
+    public override void Move(int dx, int dy)
+    {
+        foreach (LineObject line in lines)
+        {
+            line.Move(dx, dy);
+        }
+    }
+}
+
 public abstract class StartPointObject : DrawObject
 {
     public Point startPoint;
@@ -43,6 +64,19 @@ public abstract class StartPointObject : DrawObject
         startPoint.Y += dy;
     }
 }
+
+public class TextObject : StartPointObject
+{
+    public Font font;
+
+    public string text;
+
+    public override void Draw(Graphics g)
+    {
+        g.DrawString(text, font, MakeBrush(), startPoint, StringFormat.GenericTypographic);
+    }
+}
+
 public abstract class TwoPointObject : StartPointObject
 {
     public Point endPoint;
@@ -60,6 +94,7 @@ public class LineObject : TwoPointObject
 {
     public override void Draw(Graphics g)
     {
+        Console.WriteLine("Lijntje Tekenen");
         g.DrawLine(MakePen(), startPoint, endPoint);
     }
 }
@@ -67,6 +102,7 @@ public class RectangleObject : TwoPointObject
 {
     public override void Draw(Graphics g)
     {
+        Console.WriteLine("lege rechthoek Tekenen");
         g.DrawRectangle(MakePen(), rectangle);
     }
 }
@@ -75,6 +111,7 @@ public class FilledRectangleObject : TwoPointObject
 {
     public override void Draw(Graphics g)
     {
+        Console.WriteLine("volle rechthoek Tekenen");
         g.FillRectangle(MakeBrush(), rectangle);
     }
 }
@@ -83,6 +120,7 @@ public class EllipseObject : TwoPointObject
 {
     public override void Draw(Graphics g)
     {
+        Console.WriteLine("lege ellipse Tekenen");
         g.DrawEllipse(MakePen(), rectangle);
     }
 }
@@ -91,6 +129,7 @@ public class FilledEllipseObject : TwoPointObject
 {
     public override void Draw(Graphics g)
     {
+        Console.WriteLine("volle ellipse Tekenen");
         g.FillEllipse(MakeBrush(), rectangle);
     }
 }
