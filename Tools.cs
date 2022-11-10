@@ -17,6 +17,18 @@ public abstract class SketchTool : ISchetsTool
     public const int NoObject = -1;
     protected DrawObject obj = null;
 
+    public static int ClickedObject(SchetsControl s, Point p)
+    {
+        for(int i = s.Schets.objects.Count -1; i >= 0; i--)
+        {
+            if (s.Schets.objects[i].Clicked(s, p))
+            {
+                return i;
+            }
+        }
+        return NoObject;
+    }
+
     public virtual void MuisVast(SchetsControl s, Point p, MouseButtons b)
     {
         obj.color = s.PenKleur;
@@ -278,11 +290,31 @@ public class PenTool : SketchTool
     }*/
 }
     
-public class GumTool : PenTool
+public class GumTool : ISchetsTool
 {
     public override string ToString() 
     { 
         return "gum";
+    }
+    public void MuisVast(SchetsControl s, Point p, MouseButtons b)
+    {
+        int i = SketchTool.ClickedObject(s, p);
+        if(i != SketchTool.NoObject)
+        {
+            s.Schets.objects.RemoveAt(i);
+            s.Refresh();
+        }
+    }
+    public void MuisDrag(SchetsControl s, Point p)
+    {
+    }
+
+    public void MuisLos(SchetsControl s, Point p)
+    {
+    }
+
+    public void Letter(SchetsControl s, char c)
+    {
     }
 
     /*public override void Bezig(Graphics g, Point p1, Point p2)
