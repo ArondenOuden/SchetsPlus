@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Drawing.Design;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
@@ -333,13 +334,38 @@ public class GumTool : ISchetsTool
 
 public class ImageTool : StartpuntTool
 {
-    private byte[] imageToByteArray(Image image)
+    private byte[] ImageToByteArray(Image image)
     {
         using (MemoryStream ms = new MemoryStream())
         {
             image.Save(ms, ImageFormat.Png);
             return ms.ToArray();
         }
+    }
+
+    public override string ToString()
+    {
+        return "Plaatje";
+    }
+
+    public override void MuisVast(SchetsControl s, Point p, MouseButtons b)
+    {
+        OpenFileDialog dlg = new OpenFileDialog();
+        if(dlg.ShowDialog() == DialogResult.OK)
+        {   try
+            {
+                obj = new ImageObject
+                {
+                    data = ImageToByteArray(Image.FromFile(dlg.FileName))
+                };
+                base.MuisVast(s, p, b);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "FOUT", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        
     }
 
 }

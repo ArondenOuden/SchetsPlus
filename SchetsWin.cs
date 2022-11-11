@@ -44,6 +44,7 @@ public class SchetsWin : Form
                                 , new VolOvaalTool()
                                 , new TekstTool()
                                 , new GumTool()
+                                , new ImageTool()
                                 };
         String[] deKleuren = {"Black", "Red", "Green", "Blue", "Yellow", "Magenta", "Cyan", "Custom"};
 
@@ -122,6 +123,12 @@ public class SchetsWin : Form
 
     private void maakToolButtons(ICollection<ISchetsTool> tools)
     {
+        Panel p = new Panel();
+        p.AutoScroll = true;
+        p.Location = new Point(10, 10);
+        p.Size = new Size(65, this.ClientSize.Height - p.Location.Y);
+        this.Controls.Add(p);
+
         int t = 0;
         foreach (ISchetsTool tool in tools)
         {
@@ -137,8 +144,9 @@ public class SchetsWin : Form
             b.TextAlign = ContentAlignment.TopCenter;
             b.ImageAlign = ContentAlignment.BottomCenter;
             b.Click += this.klikToolButton;
-            this.Controls.Add(b);
-            if (t == 0) b.Select();
+            p.Controls.Add(b);
+            if (t == 0) 
+                b.Select();
             t++;
         }
     }
