@@ -345,14 +345,15 @@ public class ImageTool : StartpuntTool
 
     public override string ToString()
     {
-        return "Plaatje";
+        return "plaatje";
     }
 
     public override void MuisVast(SchetsControl s, Point p, MouseButtons b)
     {
         OpenFileDialog dlg = new OpenFileDialog();
         if(dlg.ShowDialog() == DialogResult.OK)
-        {   try
+        {   
+            try
             {
                 obj = new ImageObject
                 {
