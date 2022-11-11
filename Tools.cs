@@ -1,6 +1,8 @@
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
@@ -327,4 +329,17 @@ public class GumTool : ISchetsTool
     {   
         g.DrawLine(MaakPen(Brushes.White, 7), p1, p2);
     }*/
+}
+
+public class ImageTool : StartpuntTool
+{
+    private byte[] imageToByteArray(Image image)
+    {
+        using (MemoryStream ms = new MemoryStream())
+        {
+            image.Save(ms, ImageFormat.Png);
+            return ms.ToArray();
+        }
+    }
+
 }
