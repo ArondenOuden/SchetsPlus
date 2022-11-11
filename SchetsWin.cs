@@ -176,11 +176,11 @@ public class SchetsWin : Form
            
         Label penkleur = new Label(); paneel.Controls.Add(penkleur);
         penkleur.Text = "Penkleur:"; 
-        penkleur.Location = new Point(180, 3); 
+        penkleur.Location = new Point(160, 3); 
         penkleur.AutoSize = true;
             
         ComboBox cbb = new ComboBox(); paneel.Controls.Add(cbb);
-        cbb.Location = new Point(240, 0); 
+        cbb.Location = new Point(220, 0); 
         cbb.DropDownStyle = ComboBoxStyle.DropDownList; 
         cbb.SelectedValueChanged += schetscontrol.VeranderKleur;
         foreach (string k in kleuren)
@@ -189,19 +189,25 @@ public class SchetsWin : Form
                 
         Button exporteren = new Button(); paneel.Controls.Add(exporteren);
         exporteren.Text = "Exporteren"; 
-        exporteren.Location = new Point(520, 0); 
+        exporteren.Location = new Point(530, 0); 
         exporteren.Click += schetscontrol.Exporteren;
 
         Button opslaan = new Button(); paneel.Controls.Add(opslaan);
         opslaan.Text = "Opslaan";
-        opslaan.Location = new Point(440, 0);
+        opslaan.Location = new Point(410, 0);
         opslaan.Size = new Size(60, 25);
         opslaan.Click += schetscontrol.Opslaan;
 
         Button inlezen = new Button(); paneel.Controls.Add(inlezen);
         inlezen.Text = "Inlezen";
-        inlezen.Location = new Point(380, 0);
+        inlezen.Location = new Point(350, 0);
         inlezen.Size = new Size(60, 25);
         inlezen.Click += schetscontrol.Inlezen;
+
+        Button undo = new Button(); paneel.Controls.Add(undo);
+        undo.Text = "Undo";
+        undo.Location = new Point(470, 0);
+        undo.Size = new Size(60, 25);
+        undo.Click += schetscontrol.Undo;
     }
 }

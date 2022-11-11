@@ -52,6 +52,8 @@ public class Schets
         foreach (DrawObject d in objects)
             d.Rotate(bitmap.Size);
     }
+
+    //Exporteert een plaatje van het bestand
     public void Exporteren()
     {
         SaveFileDialog dialog = new SaveFileDialog();
@@ -72,6 +74,8 @@ public class Schets
                         );
         }
     }
+
+    //Slaat het bestand op met de beste exstentie ooit
     public void Opslaan()
     {
         SaveFileDialog dialog = new SaveFileDialog();
@@ -91,6 +95,8 @@ public class Schets
         }
         
     }
+
+    //Leest het bestand met de beste exstentie ooit
     public void Inlezen()
     {
         OpenFileDialog dialog = new OpenFileDialog();

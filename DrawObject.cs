@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 
+//De klasse waarin alle objecten getekent worden
 public abstract class DrawObject
 {
     public Color color = Color.Black;
@@ -14,11 +15,13 @@ public abstract class DrawObject
     {
     }
     
+    //Maakt de gevraagde brush
     public Brush MakeBrush()
     {
         return new SolidBrush(color);
     }
 
+    //Maakt de gevraagde pen
     public Pen MakePen()
     {
         Pen pen = new Pen(MakeBrush(), width);
@@ -27,6 +30,7 @@ public abstract class DrawObject
         return pen;
     }
 
+    //Kijkt of er op het bepaald object geklikt is
     public virtual bool Clicked(SchetsControl s, Point p)
     {
         return false;
@@ -34,6 +38,7 @@ public abstract class DrawObject
 
     public abstract void Draw(Graphics g);
 
+    //Draait elk punt om het midden heen
     public static Point PointRotation(Point p, Size size)
     {
         Point point = new Point(size.Width / 2, size.Height / 2);
@@ -48,8 +53,10 @@ public abstract class DrawObject
     public abstract void Rotate(Size size);
 }
 
+//Het pen object
 public class PenObject : DrawObject
 {
+    //Maakt een lijst van allemaal kleine lijnen waaruit de pen bestaat
     public List<LineObject> lines = new List<LineObject>();
 
     public override void Draw(Graphics g)
@@ -69,12 +76,13 @@ public class PenObject : DrawObject
         }
         return false;
     }
+
+    //Staat in elke subklasse, converteert het gegeven object naar een string format
     public override string ToString()
     {
         string s = "";
         foreach(LineObject line in lines)
         {
-            Console.WriteLine("TEKENEN");
             s += "LineObject " + line.startPoint.X + " " + line.startPoint.Y + " " + line.endPoint.X + " " + line.endPoint.Y + " " + color.R + " " + color.G + " " + color.B + "\n";
         }
         s.TrimEnd('\n', '\r');
@@ -99,6 +107,7 @@ public abstract class StartPointObject : DrawObject
 }
 public class ImageObject : StartPointObject
 {
+    //maakt een array van bytes die het plaatje voorstelt
     public byte[] data;
 
     public override void Draw(Graphics g)
@@ -109,8 +118,6 @@ public class ImageObject : StartPointObject
             g.DrawImage(image, startPoint);
         }
     }
-
-
 
     public override string ToString()
     {
@@ -139,6 +146,7 @@ public class TextObject : StartPointObject
     {
         g.DrawString(text, font, MakeBrush(), startPoint, StringFormat.GenericTypographic);
     }
+
     public override string ToString()
     {
         return "TextObject" + " " + startPoint.X + " " + startPoint.Y + " " + text + " " + color.R + " " + color.G + " " + color.B;
@@ -148,6 +156,7 @@ public class TextObject : StartPointObject
 public abstract class TwoPointObject : StartPointObject
 {
     public Point endPoint;
+
     public Rectangle Rectangle
     {
         get
@@ -257,7 +266,6 @@ public class RectangleObject : TwoPointObject
 {
     public override void Draw(Graphics g)
     {
-        Console.WriteLine("lege rechthoek Tekenen");
         g.DrawRectangle(MakePen(), Rectangle);
     }
     public override bool Clicked(SchetsControl s, Point p)
@@ -285,7 +293,6 @@ public class FilledRectangleObject : TwoPointObject
     
     public override void Draw(Graphics g)
     {
-        Console.WriteLine("volle rechthoek Tekenen");
         g.FillRectangle(MakeBrush(), Rectangle);
     }
     public override string ToString()
@@ -306,7 +313,7 @@ public class EllipseObject : TwoPointObject
 {
     public override void Draw(Graphics g)
     {
-        Console.WriteLine("lege ellipse Tekenen");
+
         g.DrawEllipse(MakePen(), Rectangle);
     }
     public override bool Clicked(SchetsControl s, Point p)
@@ -340,7 +347,6 @@ public class FilledEllipseObject : TwoPointObject
     }
     public override void Draw(Graphics g)
     {
-        Console.WriteLine("volle ellipse Tekenen");
         g.FillEllipse(MakeBrush(), Rectangle);
     }
     public override bool Clicked(SchetsControl s, Point p)

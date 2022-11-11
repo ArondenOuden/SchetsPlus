@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Security.AccessControl;
 using System.Windows.Forms;
 
 public class SchetsControl : UserControl
@@ -96,6 +97,16 @@ public class SchetsControl : UserControl
     public void Inlezen(object o, EventArgs ea)
     {
         schets.Inlezen();
+        this.Refresh();
+    }
+    public void Undo(object o, EventArgs ea)
+    {
+        if(schets.objects.Count > 0)
+            schets.objects.RemoveAt(schets.objects.Count - 1);
+        else
+        {
+            MessageBox.Show("Oeps!", "Foutje", MessageBoxButtons.OK);
+        }
         this.Refresh();
     }
 }
