@@ -93,8 +93,8 @@ public class TekstTool : StartpuntTool
     {
         obj = new TextObject
         {
-            font = new Font("Tahoma", 40)
-        };
+            font = new Font("Comic Sans MS", 40.0f)
+    };
         base.MuisVast(s, p, b);
     }
 
