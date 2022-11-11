@@ -82,7 +82,8 @@ public abstract class StartPointObject : DrawObject
 
 public class TextObject : StartPointObject
 {
-    public Font font;
+    public Font font = new Font("Times New Roman", 12.0f);
+    
 
     public string text;
 

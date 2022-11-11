@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Geert\\source\\repos\\SchetsPlus\\7.5-SchetsEditorC.csproj": {}
+    "C:\\Users\\Aron\\source\\repos\\ArondenOuden\\schetsikmijnleven\\SchetsPlus\\7.5-SchetsEditorC.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Geert\\source\\repos\\SchetsPlus\\7.5-SchetsEditorC.csproj": {
+    "C:\\Users\\Aron\\source\\repos\\ArondenOuden\\schetsikmijnleven\\SchetsPlus\\7.5-SchetsEditorC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Geert\\source\\repos\\SchetsPlus\\7.5-SchetsEditorC.csproj",
+        "projectUniqueName": "C:\\Users\\Aron\\source\\repos\\ArondenOuden\\schetsikmijnleven\\SchetsPlus\\7.5-SchetsEditorC.csproj",
         "projectName": "7.5-SchetsEditorC",
-        "projectPath": "C:\\Users\\Geert\\source\\repos\\SchetsPlus\\7.5-SchetsEditorC.csproj",
-        "packagesPath": "C:\\Users\\Geert\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Geert\\source\\repos\\SchetsPlus\\obj\\",
+        "projectPath": "C:\\Users\\Aron\\source\\repos\\ArondenOuden\\schetsikmijnleven\\SchetsPlus\\7.5-SchetsEditorC.csproj",
+        "packagesPath": "C:\\Users\\Aron\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Aron\\source\\repos\\ArondenOuden\\schetsikmijnleven\\SchetsPlus\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Geert\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Aron\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
