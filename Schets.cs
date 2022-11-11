@@ -74,4 +74,12 @@ public class Schets
                         );
         }
     }
+    public void Opslaan()
+    {
+
+    }
+    public void Inlezen()
+    {
+
+    }
 }
