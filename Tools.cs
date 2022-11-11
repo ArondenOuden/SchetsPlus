@@ -19,7 +19,7 @@ public abstract class SketchTool : ISchetsTool
 {
     public const int NoObject = -1;
     protected DrawObject obj = null;
-
+    
     public static int ClickedObject(SchetsControl s, Point p)
     {
         for (int i = s.Schets.objects.Count -1; i >= 0; i--)
@@ -34,6 +34,7 @@ public abstract class SketchTool : ISchetsTool
 
     public virtual void MuisVast(SchetsControl s, Point p, MouseButtons b)
     {
+        s.Changes = true;
         obj.color = s.PenKleur;
         s.Schets.objects.Add(obj);
     }
@@ -62,19 +63,6 @@ public abstract class StartpuntTool : SketchTool
         ((StartPointObject)obj).startPoint = p;
         base.MuisVast(s, p, b);
     }
-    /*protected Point startpunt;
-    protected Brush kwast;
-
-    public virtual void MuisVast(SchetsControl s, Point p)
-    {   
-        startpunt = p;
-    }
-    public virtual void MuisLos(SchetsControl s, Point p)
-    {   
-        kwast = new SolidBrush(s.PenKleur);
-    }
-    public abstract void MuisDrag(SchetsControl s, Point p);
-    public abstract void Letter(SchetsControl s, char c);*/
 }
 
 public class TekstTool : StartpuntTool
@@ -95,11 +83,9 @@ public class TekstTool : StartpuntTool
         obj = new TextObject
         {
             font = new Font("Comic Sans MS", 40.0f)
-    };
+        };
         base.MuisVast(s, p, b);
     }
-
-    //public override void MuisDrag(SchetsControl s, Point p) { }
 
     public override void Letter(SchetsControl s, char c)
     {
@@ -109,19 +95,6 @@ public class TekstTool : StartpuntTool
         else if(c == '\b') 
             texto.text = backspace(texto.text);
         base.Letter(s, c);
-        /*if (c >= 32)
-        {
-            Graphics gr = s.MaakBitmapGraphics();
-            Font font = new Font("Tahoma", 40);
-            string tekst = c.ToString();
-            SizeF sz = 
-            gr.MeasureString(tekst, font, this.startpunt, StringFormat.GenericTypographic);
-            gr.DrawString   (tekst, font, kwast, 
-                                            this.startpunt, StringFormat.GenericTypographic);
-            // gr.DrawRectangle(Pens.Black, startpunt.X, startpunt.Y, sz.Width, sz.Height);
-            startpunt.X += (int)sz.Width;
-            s.Invalidate();
-        }*/
     }
 }
 

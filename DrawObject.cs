@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 public abstract class DrawObject
 {
@@ -16,7 +12,6 @@ public abstract class DrawObject
 
     public DrawObject()
     {
-
     }
     
     public Brush MakeBrush()
@@ -38,7 +33,19 @@ public abstract class DrawObject
     }
 
     public abstract void Draw(Graphics g);
-    public abstract void Move(int dx, int dy);
+
+    public static Point PointRotation(Point p, Size size)
+    {
+        Point point = new Point(size.Width / 2, size.Height / 2);
+        p = new Point(p.X - point.X, p.Y - point.Y);
+
+        double cos = Math.Cos(-0.5 * Math.PI);
+        double sin = Math.Sin(-0.5 * Math.PI);
+        p = new Point((int)(p.X * cos - p.Y * sin), (int)(p.X * sin + p.Y * cos));
+
+        return new Point(p.X + point.X, p.Y + point.Y);
+    }
+    public abstract void Rotate(Size size);
 }
 
 public class PenObject : DrawObject
@@ -48,17 +55,11 @@ public class PenObject : DrawObject
     public override void Draw(Graphics g)
     {
         foreach(LineObject line in lines)
-        {
+        { 
             line.Draw(g);
         }
     }
-    public override void Move(int dx, int dy)
-    {
-        foreach (LineObject line in lines)
-        {
-            line.Move(dx, dy);
-        }
-    }
+
     public override bool Clicked(SchetsControl s, Point p)
     {
         foreach(LineObject line in lines)
@@ -68,16 +69,32 @@ public class PenObject : DrawObject
         }
         return false;
     }
+    public override string ToString()
+    {
+        string s = "";
+        foreach(LineObject line in lines)
+        {
+            Console.WriteLine("TEKENEN");
+            s += "LineObject " + line.startPoint.X + " " + line.startPoint.Y + " " + line.endPoint.X + " " + line.endPoint.Y + " " + color.R + " " + color.G + " " + color.B + "\n";
+        }
+        s.TrimEnd('\n', '\r');
+        return s;
+    }
+
+    public override void Rotate(Size size)
+    {
+        foreach(LineObject line in lines)
+            line.Rotate(size);
+    }
 }
 
 public abstract class StartPointObject : DrawObject
 {
     public Point startPoint;
 
-    public override void Move(int dx, int dy)
+    public override void Rotate(Size size)
     {
-        startPoint.X += dx;
-        startPoint.Y += dy;
+        startPoint = DrawObject.PointRotation(startPoint, size);
     }
 }
 public class ImageObject : StartPointObject
@@ -92,18 +109,39 @@ public class ImageObject : StartPointObject
             g.DrawImage(image, startPoint);
         }
     }
-}
 
+
+
+    public override string ToString()
+    {
+        return null;
+    }
+}
 public class TextObject : StartPointObject
 {
-    public Font font = new Font("Times New Roman", 12.0f);
-    
+    public Font font = new Font("Comic Sans MS", 40.0f);
 
     public string text;
+
+    public TextObject(string[] v)
+    {
+        startPoint = new Point(int.Parse(v[1]), int.Parse(v[2]));
+        color = Color.FromArgb(int.Parse(v[v.Length - 3]), int.Parse(v[v.Length - 2]), int.Parse(v[v.Length - 1]));
+        for (int i = 3; i < v.Length -3; i++)
+        {
+            text += v[i] + " ";
+        }
+            
+    }
+    public TextObject() { }
 
     public override void Draw(Graphics g)
     {
         g.DrawString(text, font, MakeBrush(), startPoint, StringFormat.GenericTypographic);
+    }
+    public override string ToString()
+    {
+        return "TextObject" + " " + startPoint.X + " " + startPoint.Y + " " + text + " " + color.R + " " + color.G + " " + color.B;
     }
 }
 
@@ -164,14 +202,28 @@ public abstract class TwoPointObject : StartPointObject
     {
         return ClickedInRectangle(OuterRectangle, p);
     }
+
+    public override void Rotate(Size size)
+    {
+        base.Rotate(size);
+        endPoint = DrawObject.PointRotation(endPoint, size);
+    }
 }
 
 public class LineObject : TwoPointObject
 {
     public override void Draw(Graphics g)
     {
-        Console.WriteLine("Lijntje Tekenen");
         g.DrawLine(MakePen(), startPoint, endPoint);
+    }
+
+    public LineObject() { }
+
+    public LineObject(string[] v)
+    {
+        startPoint = new Point(int.Parse(v[1]), int.Parse(v[2]));
+        endPoint = new Point(int.Parse(v[3]), int.Parse(v[4]));
+        color = Color.FromArgb(int.Parse(v[v.Length - 3]), int.Parse(v[v.Length - 2]), int.Parse(v[v.Length - 1]));
     }
 
     public override bool Clicked(SchetsControl s, Point p)
@@ -194,6 +246,12 @@ public class LineObject : TwoPointObject
         //Aqcuired formula from http://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line#Line_defined_by_two_points
         return Math.Abs(dy * x0 - dx * y0 - x1 * y2 + x2 * y1) / Math.Sqrt(dx * dx + dy * dy) - width / 2;
     }
+    public override string ToString()
+    {
+        return "LineObject" + " " + startPoint.X + " " + startPoint.Y + " " + endPoint.X + " " + endPoint.Y + " " + color.R + " " + color.G + " " + color.B;
+    }
+
+
 }
 public class RectangleObject : TwoPointObject
 {
@@ -208,6 +266,18 @@ public class RectangleObject : TwoPointObject
             return false;
         return !ClickedInRectangle(InnerRectangle, p);
     }
+    public override string ToString()
+    {
+        return "RectangleObject" + " " + startPoint.X + " " + startPoint.Y + " " + endPoint.X + " " + endPoint.Y + " " + color.R + " " + color.G + " " + color.B;
+    }
+    public RectangleObject() { }
+
+    public RectangleObject(string[] v)
+    {
+        startPoint = new Point(int.Parse(v[1]), int.Parse(v[2]));
+        endPoint = new Point(int.Parse(v[3]), int.Parse(v[4]));
+        color = Color.FromArgb(int.Parse(v[v.Length - 3]), int.Parse(v[v.Length - 2]), int.Parse(v[v.Length - 1]));
+    }
 }
 
 public class FilledRectangleObject : TwoPointObject
@@ -218,7 +288,18 @@ public class FilledRectangleObject : TwoPointObject
         Console.WriteLine("volle rechthoek Tekenen");
         g.FillRectangle(MakeBrush(), Rectangle);
     }
-    
+    public override string ToString()
+    {
+        return "FilledRectangleObject" + " " + startPoint.X + " " + startPoint.Y + " " + endPoint.X + " " + endPoint.Y + " " + color.R + " " + color.G + " " + color.B;
+    }
+    public FilledRectangleObject() { }
+
+    public FilledRectangleObject(string[] v)
+    {
+        startPoint = new Point(int.Parse(v[1]), int.Parse(v[2]));
+        endPoint = new Point(int.Parse(v[3]), int.Parse(v[4]));
+        color = Color.FromArgb(int.Parse(v[v.Length - 3]), int.Parse(v[v.Length - 2]), int.Parse(v[v.Length - 1]));
+    }
 }
 
 public class EllipseObject : TwoPointObject
@@ -236,6 +317,18 @@ public class EllipseObject : TwoPointObject
         Size size = new Size(r.Width / 2, r.Height / 2);
         p = new Point(p.X - r.X - size.Width, p.Y - r.Y - size.Height);
         return !(FilledEllipseObject.EllipseValidity(p, size) <= 1);
+    }
+    public override string ToString()
+    {
+        return "EllipseObject" + " " + startPoint.X + " " + startPoint.Y + " " + endPoint.X + " " + endPoint.Y + " " + color.R + " " + color.G + " " + color.B;
+    }
+    public EllipseObject() { }
+
+    public EllipseObject(string[] v)
+    {
+        startPoint = new Point(int.Parse(v[1]), int.Parse(v[2]));
+        endPoint = new Point(int.Parse(v[3]), int.Parse(v[4]));
+        color = Color.FromArgb(int.Parse(v[v.Length - 3]), int.Parse(v[v.Length - 2]), int.Parse(v[v.Length - 1]));
     }
 }
 
@@ -258,6 +351,18 @@ public class FilledEllipseObject : TwoPointObject
         Size size = new Size(r.Width / 2, r.Height / 2);
         p = new Point(p.X - r.X - size.Width, p.Y - r.Y - size.Height);
         return EllipseValidity(p, size) <= 1;
+    }
+    public override string ToString()
+    {
+        return "FilledEllipseObject" + " " + startPoint.X + " " + startPoint.Y + " " + endPoint.X + " " + endPoint.Y + " " + color.R + " " + color.G + " " + color.B;
+    }
+    public FilledEllipseObject() { }
+
+    public FilledEllipseObject(string[] v)
+    {
+        startPoint = new Point(int.Parse(v[1]), int.Parse(v[2]));
+        endPoint = new Point(int.Parse(v[3]), int.Parse(v[4]));
+        color = Color.FromArgb(int.Parse(v[v.Length - 3]), int.Parse(v[v.Length - 2]), int.Parse(v[v.Length - 1]));
     }
 }
 
