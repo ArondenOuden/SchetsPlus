@@ -98,6 +98,13 @@ public class SchetsControl : UserControl
     public void Exporteren(object o, EventArgs ea)
     {   
         schets.Exporteren();
-        this.Invalidate();
+    }
+    public void Opslaan(object o, EventArgs ea)
+    {
+        schets.Opslaan();
+    }
+    public void Inlezen(object o, EventArgs ea)
+    {
+        schets.Inlezen();
     }
 }

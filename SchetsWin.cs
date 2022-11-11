@@ -174,6 +174,16 @@ public class SchetsWin : Form
         Button exporteren = new Button(); paneel.Controls.Add(exporteren);
         exporteren.Text = "Exporteren"; 
         exporteren.Location = new Point( 500, 0); 
-        exporteren.Click += schetscontrol.Exporteren; 
+        exporteren.Click += schetscontrol.Exporteren;
+
+        Button opslaan = new Button(); paneel.Controls.Add(opslaan);
+        opslaan.Text = "Opslaan";
+        opslaan.Location = new Point(600, 0);
+        opslaan.Click += schetscontrol.Opslaan;
+
+        Button inlezen = new Button(); paneel.Controls.Add(inlezen);
+        inlezen.Text = "Inlezen";
+        inlezen.Location = new Point(600, 0);
+        inlezen.Click += schetscontrol.Inlezen;
     }
 }
