@@ -19,7 +19,7 @@ public abstract class SketchTool : ISchetsTool
 
     public static int ClickedObject(SchetsControl s, Point p)
     {
-        for(int i = s.Schets.objects.Count -1; i >= 0; i--)
+        for (int i = s.Schets.objects.Count -1; i >= 0; i--)
         {
             if (s.Schets.objects[i].Clicked(s, p))
             {
@@ -96,11 +96,17 @@ public class TekstTool : StartpuntTool
         base.MuisVast(s, p, b);
     }
 
-    /*public override void MuisDrag(SchetsControl s, Point p) { }
+    //public override void MuisDrag(SchetsControl s, Point p) { }
 
     public override void Letter(SchetsControl s, char c)
     {
-        if (c >= 32)
+        TextObject texto = (TextObject)this.obj;
+        if(!Char.IsControl(c))
+            texto.text += c.ToString();
+        else if(c == '\b') 
+            texto.text = backspace(texto.text);
+        base.Letter(s, c);
+        /*if (c >= 32)
         {
             Graphics gr = s.MaakBitmapGraphics();
             Font font = new Font("Tahoma", 40);
@@ -112,8 +118,8 @@ public class TekstTool : StartpuntTool
             // gr.DrawRectangle(Pens.Black, startpunt.X, startpunt.Y, sz.Width, sz.Height);
             startpunt.X += (int)sz.Width;
             s.Invalidate();
-        }
-    }*/
+        }*/
+    }
 }
 
 public abstract class TweepuntTool : StartpuntTool

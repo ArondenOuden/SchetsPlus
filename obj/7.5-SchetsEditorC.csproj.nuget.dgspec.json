@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Geert\\Source\\Repos\\SchetsPlus\\7.5-SchetsEditorC.csproj": {}
+    "C:\\Users\\Geert\\source\\repos\\SchetsPlus\\7.5-SchetsEditorC.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Geert\\Source\\Repos\\SchetsPlus\\7.5-SchetsEditorC.csproj": {
+    "C:\\Users\\Geert\\source\\repos\\SchetsPlus\\7.5-SchetsEditorC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Geert\\Source\\Repos\\SchetsPlus\\7.5-SchetsEditorC.csproj",
+        "projectUniqueName": "C:\\Users\\Geert\\source\\repos\\SchetsPlus\\7.5-SchetsEditorC.csproj",
         "projectName": "7.5-SchetsEditorC",
-        "projectPath": "C:\\Users\\Geert\\Source\\Repos\\SchetsPlus\\7.5-SchetsEditorC.csproj",
+        "projectPath": "C:\\Users\\Geert\\source\\repos\\SchetsPlus\\7.5-SchetsEditorC.csproj",
         "packagesPath": "C:\\Users\\Geert\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Geert\\Source\\Repos\\SchetsPlus\\obj\\",
+        "outputPath": "C:\\Users\\Geert\\source\\repos\\SchetsPlus\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Geert\\AppData\\Roaming\\NuGet\\NuGet.Config",
