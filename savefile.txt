@@ -1,1 +1,0 @@
-FilledRectangleObject 172 96 391 246 0 0 0

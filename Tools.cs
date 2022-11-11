@@ -110,44 +110,6 @@ public abstract class TweepuntTool : StartpuntTool
         ((TwoPointObject)obj).endPoint = p;
         base.MuisDrag(s, p);
     }
-    /*public static Rectangle Punten2Rechthoek(Point p1, Point p2)
-    {   
-        return new Rectangle( new Point(Math.Min(p1.X,p2.X), Math.Min(p1.Y,p2.Y))
-                            , new Size (Math.Abs(p1.X-p2.X), Math.Abs(p1.Y-p2.Y))
-                            );
-    }
-    public static Pen MaakPen(Brush b, int dikte)
-    {   
-        Pen pen = new Pen(b, dikte);
-        pen.StartCap = LineCap.Round;
-        pen.EndCap = LineCap.Round;
-        return pen;
-    }
-    public override void MuisVast(SchetsControl s, Point p)
-    {  
-        base.MuisVast(s, p);
-        kwast = new SolidBrush(s.PenKleur);
-    }
-    public override void MuisDrag(SchetsControl s, Point p)
-    {   
-        s.Refresh();
-        this.Bezig(s.CreateGraphics(), this.startpunt, p);
-    }
-    public override void MuisLos(SchetsControl s, Point p)
-    {   
-        base.MuisLos(s, p);
-        this.Compleet(s.MaakBitmapGraphics(), this.startpunt, p);
-        s.Invalidate();
-    }
-    public override void Letter(SchetsControl s, char c)
-    {
-    }
-    public abstract void Bezig(Graphics g, Point p1, Point p2);
-        
-    public virtual void Compleet(Graphics g, Point p1, Point p2)
-    {   
-        this.Bezig(g, p1, p2);
-    }*/
 }
 
 public class RechthoekTool : TweepuntTool
@@ -163,15 +125,6 @@ public class RechthoekTool : TweepuntTool
         
         base.MuisVast(s, p, b);
     }
-    /*public override void Bezig(Graphics g, Point p1, Point p2)
-    {   
-        g.DrawRectangle(MaakPen(kwast,3), TweepuntTool.Punten2Rechthoek(p1, p2));
-    }
-    public override void MuisLos(SchetsControl s, Point p)
-    {
-        base.MuisLos(s, p);
-        //s.Schets.DrawObjects.Add(Type.Rectangle);
-    }*/
 }
     
 public class VolRechthoekTool : TweepuntTool
@@ -186,10 +139,6 @@ public class VolRechthoekTool : TweepuntTool
         obj = new FilledRectangleObject();
         base.MuisVast(s, p, b);
     }
-    /*public override void Compleet(Graphics g, Point p1, Point p2)
-    {   
-        g.FillRectangle(kwast, TweepuntTool.Punten2Rechthoek(p1, p2));
-    }*/
 }
 
 public class OvaalTool : TweepuntTool
@@ -201,11 +150,6 @@ public class OvaalTool : TweepuntTool
         obj = new EllipseObject();
         base.MuisVast(s, p, b);
     }
-
-    /*public override void Bezig(Graphics g, Point p1, Point p2)
-    {   
-        g.DrawEllipse(MaakPen(kwast,3), TweepuntTool.Punten2Rechthoek(p1, p2));
-    }*/
 }
     
 public class VolOvaalTool : TweepuntTool
@@ -217,11 +161,6 @@ public class VolOvaalTool : TweepuntTool
         obj = new FilledEllipseObject();
         base.MuisVast(s, p, b);
     }
-
-    /*public override void Compleet(Graphics g, Point p1, Point p2)
-    {   
-        g.FillEllipse(kwast, TweepuntTool.Punten2Rechthoek(p1, p2));
-    }*/
 }
 
 public class LijnTool : TweepuntTool
@@ -233,12 +172,6 @@ public class LijnTool : TweepuntTool
         obj = new LineObject();
         base.MuisVast(s, p, b);
     }
-
-
-    /*public override void Bezig(Graphics g, Point p1, Point p2)
-    {   
-        g.DrawLine(MaakPen(this.kwast,3), p1, p2);
-    }*/
 }
 
 public class PenTool : SketchTool
@@ -264,12 +197,6 @@ public class PenTool : SketchTool
         startPoint = p;
         base.MuisDrag(s, p);
     }
-
-    /*public override void MuisDrag(SchetsControl s, Point p)
-    {   
-        this.MuisLos(s, p);
-        this.MuisVast(s, p);
-    }*/
 }
     
 public class GumTool : ISchetsTool
@@ -298,11 +225,6 @@ public class GumTool : ISchetsTool
     public void Letter(SchetsControl s, char c)
     {
     }
-
-    /*public override void Bezig(Graphics g, Point p1, Point p2)
-    {   
-        g.DrawLine(MaakPen(Brushes.White, 7), p1, p2);
-    }*/
 }
 
 public class ImageTool : StartpuntTool
@@ -339,7 +261,5 @@ public class ImageTool : StartpuntTool
                 MessageBox.Show(e.Message, "FOUT", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        
     }
-
 }

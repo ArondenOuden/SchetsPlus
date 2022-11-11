@@ -143,7 +143,6 @@ public class SchetsWin : Form
         {
             RadioButton b = new RadioButton();
             b.Appearance = Appearance.Button;
-            //b.Size = new Size(45, 62);
             b.Size = new Size(50, 62);
             
             b.Location = new Point(10, 10 + t * 62);

@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 
 public class Schets
 {
@@ -48,8 +46,6 @@ public class Schets
     public void Schoon()
     {
         objects.Clear();
-        /*Graphics gr = Graphics.FromImage(bitmap);
-        gr.FillRectangle(Brushes.White, 0, 0, bitmap.Width, bitmap.Height);*/
     }
     public void Roteer()
     {
@@ -85,7 +81,6 @@ public class Schets
         if (dialog.ShowDialog()==DialogResult.OK)
         {
             string s = dialog.FileName;
-            //FileStream fileStream = new FileStream(Filename, FileMode.CreateNew);
             TextWriter sw = new StreamWriter(s);
             foreach (DrawObject drawobject in objects)
             {
