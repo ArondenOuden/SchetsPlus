@@ -264,6 +264,7 @@ public class LineObject : TwoPointObject
 }
 public class RectangleObject : TwoPointObject
 {
+    Rectangle rec = Rectangle;
     public override void Draw(Graphics g)
     {
         g.DrawRectangle(MakePen(), Rectangle);
