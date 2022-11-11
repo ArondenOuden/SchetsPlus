@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -77,6 +78,19 @@ public abstract class StartPointObject : DrawObject
     {
         startPoint.X += dx;
         startPoint.Y += dy;
+    }
+}
+public class ImageObject : StartPointObject
+{
+    public byte[] data;
+
+    public override void Draw(Graphics g)
+    {
+        using (MemoryStream ms = new MemoryStream(data))
+        {
+            Image image = Image.FromStream(ms);
+            g.DrawImage(image, startPoint);
+        }
     }
 }
 
