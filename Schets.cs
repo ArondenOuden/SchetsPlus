@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 
 public class Schets
 {
     public List<DrawObject> objects = new List<DrawObject>();
+    
 
     private Bitmap bitmap;   
     public Schets()
@@ -47,12 +46,11 @@ public class Schets
     public void Schoon()
     {
         objects.Clear();
-        /*Graphics gr = Graphics.FromImage(bitmap);
-        gr.FillRectangle(Brushes.White, 0, 0, bitmap.Width, bitmap.Height);*/
     }
     public void Roteer()
     {
-        bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
+        foreach (DrawObject d in objects)
+            d.Rotate(bitmap.Size);
     }
     public void Exporteren()
     {
@@ -76,10 +74,58 @@ public class Schets
     }
     public void Opslaan()
     {
-
+        SaveFileDialog dialog = new SaveFileDialog();
+        dialog.Filter = "FokkerLover|.FokkerLover";
+        dialog.DefaultExt = "FokkerLover";
+        dialog.AddExtension = true;
+        if (dialog.ShowDialog()==DialogResult.OK)
+        {
+            string s = dialog.FileName;
+            TextWriter sw = new StreamWriter(s);
+            foreach (DrawObject drawobject in objects)
+            {
+                string str = drawobject.ToString();
+                sw.WriteLine(str);
+            }
+            sw.Close();
+        }
+        
     }
     public void Inlezen()
     {
+        OpenFileDialog dialog = new OpenFileDialog();
+        if (dialog.ShowDialog() == DialogResult.OK)
+        {
+            string s = dialog.FileName;
+            TextReader tw = new StreamReader(s);
+            string str;
+            while ((str = tw.ReadLine()) != null)
+            {
+                string[] v;
+                v = str.Split(" ");
 
+                switch (v[0])
+                {
+                    case "TextObject":
+                        objects.Add(new TextObject(v));
+                        break;
+                    case "LineObject":
+                        objects.Add(new LineObject(v));
+                        break;
+                    case "RectangleObject":
+                        objects.Add(new RectangleObject(v));
+                        break;
+                    case "FilledRectangleObject":
+                        objects.Add(new FilledRectangleObject(v));
+                        break;
+                    case "EllipseObject":
+                        objects.Add(new EllipseObject(v));
+                        break;
+                    case "FilledEllipseObject":
+                        objects.Add(new FilledEllipseObject(v));
+                        break;
+                }
+            }
+        }
     }
 }

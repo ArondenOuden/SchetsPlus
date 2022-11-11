@@ -1,9 +1,7 @@
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 public interface ISchetsTool
@@ -18,7 +16,7 @@ public abstract class SketchTool : ISchetsTool
 {
     public const int NoObject = -1;
     protected DrawObject obj = null;
-
+    
     public static int ClickedObject(SchetsControl s, Point p)
     {
         for (int i = s.Schets.objects.Count -1; i >= 0; i--)
@@ -33,6 +31,7 @@ public abstract class SketchTool : ISchetsTool
 
     public virtual void MuisVast(SchetsControl s, Point p, MouseButtons b)
     {
+        s.Changes = true;
         obj.color = s.PenKleur;
         s.Schets.objects.Add(obj);
     }
@@ -61,19 +60,6 @@ public abstract class StartpuntTool : SketchTool
         ((StartPointObject)obj).startPoint = p;
         base.MuisVast(s, p, b);
     }
-    /*protected Point startpunt;
-    protected Brush kwast;
-
-    public virtual void MuisVast(SchetsControl s, Point p)
-    {   
-        startpunt = p;
-    }
-    public virtual void MuisLos(SchetsControl s, Point p)
-    {   
-        kwast = new SolidBrush(s.PenKleur);
-    }
-    public abstract void MuisDrag(SchetsControl s, Point p);
-    public abstract void Letter(SchetsControl s, char c);*/
 }
 
 public class TekstTool : StartpuntTool
@@ -94,11 +80,9 @@ public class TekstTool : StartpuntTool
         obj = new TextObject
         {
             font = new Font("Comic Sans MS", 40.0f)
-    };
+        };
         base.MuisVast(s, p, b);
     }
-
-    //public override void MuisDrag(SchetsControl s, Point p) { }
 
     public override void Letter(SchetsControl s, char c)
     {
@@ -108,19 +92,6 @@ public class TekstTool : StartpuntTool
         else if(c == '\b') 
             texto.text = backspace(texto.text);
         base.Letter(s, c);
-        /*if (c >= 32)
-        {
-            Graphics gr = s.MaakBitmapGraphics();
-            Font font = new Font("Tahoma", 40);
-            string tekst = c.ToString();
-            SizeF sz = 
-            gr.MeasureString(tekst, font, this.startpunt, StringFormat.GenericTypographic);
-            gr.DrawString   (tekst, font, kwast, 
-                                            this.startpunt, StringFormat.GenericTypographic);
-            // gr.DrawRectangle(Pens.Black, startpunt.X, startpunt.Y, sz.Width, sz.Height);
-            startpunt.X += (int)sz.Width;
-            s.Invalidate();
-        }*/
     }
 }
 
@@ -136,44 +107,6 @@ public abstract class TweepuntTool : StartpuntTool
         ((TwoPointObject)obj).endPoint = p;
         base.MuisDrag(s, p);
     }
-    /*public static Rectangle Punten2Rechthoek(Point p1, Point p2)
-    {   
-        return new Rectangle( new Point(Math.Min(p1.X,p2.X), Math.Min(p1.Y,p2.Y))
-                            , new Size (Math.Abs(p1.X-p2.X), Math.Abs(p1.Y-p2.Y))
-                            );
-    }
-    public static Pen MaakPen(Brush b, int dikte)
-    {   
-        Pen pen = new Pen(b, dikte);
-        pen.StartCap = LineCap.Round;
-        pen.EndCap = LineCap.Round;
-        return pen;
-    }
-    public override void MuisVast(SchetsControl s, Point p)
-    {  
-        base.MuisVast(s, p);
-        kwast = new SolidBrush(s.PenKleur);
-    }
-    public override void MuisDrag(SchetsControl s, Point p)
-    {   
-        s.Refresh();
-        this.Bezig(s.CreateGraphics(), this.startpunt, p);
-    }
-    public override void MuisLos(SchetsControl s, Point p)
-    {   
-        base.MuisLos(s, p);
-        this.Compleet(s.MaakBitmapGraphics(), this.startpunt, p);
-        s.Invalidate();
-    }
-    public override void Letter(SchetsControl s, char c)
-    {
-    }
-    public abstract void Bezig(Graphics g, Point p1, Point p2);
-        
-    public virtual void Compleet(Graphics g, Point p1, Point p2)
-    {   
-        this.Bezig(g, p1, p2);
-    }*/
 }
 
 public class RechthoekTool : TweepuntTool
@@ -189,15 +122,6 @@ public class RechthoekTool : TweepuntTool
         
         base.MuisVast(s, p, b);
     }
-    /*public override void Bezig(Graphics g, Point p1, Point p2)
-    {   
-        g.DrawRectangle(MaakPen(kwast,3), TweepuntTool.Punten2Rechthoek(p1, p2));
-    }
-    public override void MuisLos(SchetsControl s, Point p)
-    {
-        base.MuisLos(s, p);
-        //s.Schets.DrawObjects.Add(Type.Rectangle);
-    }*/
 }
     
 public class VolRechthoekTool : TweepuntTool
@@ -212,10 +136,6 @@ public class VolRechthoekTool : TweepuntTool
         obj = new FilledRectangleObject();
         base.MuisVast(s, p, b);
     }
-    /*public override void Compleet(Graphics g, Point p1, Point p2)
-    {   
-        g.FillRectangle(kwast, TweepuntTool.Punten2Rechthoek(p1, p2));
-    }*/
 }
 
 public class OvaalTool : TweepuntTool
@@ -227,11 +147,6 @@ public class OvaalTool : TweepuntTool
         obj = new EllipseObject();
         base.MuisVast(s, p, b);
     }
-
-    /*public override void Bezig(Graphics g, Point p1, Point p2)
-    {   
-        g.DrawEllipse(MaakPen(kwast,3), TweepuntTool.Punten2Rechthoek(p1, p2));
-    }*/
 }
     
 public class VolOvaalTool : TweepuntTool
@@ -243,11 +158,6 @@ public class VolOvaalTool : TweepuntTool
         obj = new FilledEllipseObject();
         base.MuisVast(s, p, b);
     }
-
-    /*public override void Compleet(Graphics g, Point p1, Point p2)
-    {   
-        g.FillEllipse(kwast, TweepuntTool.Punten2Rechthoek(p1, p2));
-    }*/
 }
 
 public class LijnTool : TweepuntTool
@@ -259,12 +169,6 @@ public class LijnTool : TweepuntTool
         obj = new LineObject();
         base.MuisVast(s, p, b);
     }
-
-
-    /*public override void Bezig(Graphics g, Point p1, Point p2)
-    {   
-        g.DrawLine(MaakPen(this.kwast,3), p1, p2);
-    }*/
 }
 
 public class PenTool : SketchTool
@@ -290,12 +194,6 @@ public class PenTool : SketchTool
         startPoint = p;
         base.MuisDrag(s, p);
     }
-
-    /*public override void MuisDrag(SchetsControl s, Point p)
-    {   
-        this.MuisLos(s, p);
-        this.MuisVast(s, p);
-    }*/
 }
     
 public class GumTool : ISchetsTool
@@ -324,16 +222,11 @@ public class GumTool : ISchetsTool
     public void Letter(SchetsControl s, char c)
     {
     }
-
-    /*public override void Bezig(Graphics g, Point p1, Point p2)
-    {   
-        g.DrawLine(MaakPen(Brushes.White, 7), p1, p2);
-    }*/
 }
 
 public class ImageTool : StartpuntTool
 {
-    private byte[] imageToByteArray(Image image)
+    private byte[] ImageToByteArray(Image image)
     {
         using (MemoryStream ms = new MemoryStream())
         {
@@ -342,4 +235,28 @@ public class ImageTool : StartpuntTool
         }
     }
 
+    public override string ToString()
+    {
+        return "plaatje";
+    }
+
+    public override void MuisVast(SchetsControl s, Point p, MouseButtons b)
+    {
+        OpenFileDialog dlg = new OpenFileDialog();
+        if(dlg.ShowDialog() == DialogResult.OK)
+        {   
+            try
+            {
+                obj = new ImageObject
+                {
+                    data = ImageToByteArray(Image.FromFile(dlg.FileName))
+                };
+                base.MuisVast(s, p, b);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "FOUT", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+    }
 }

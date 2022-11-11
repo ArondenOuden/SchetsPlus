@@ -8,6 +8,7 @@ public class SchetsControl : UserControl
     private Schets schets;
     private Color penkleur;
     public ColorDialog colorDialog = new ColorDialog();
+    public bool Changes;
 
     public Color PenKleur
     { 
@@ -16,18 +17,6 @@ public class SchetsControl : UserControl
             return penkleur; 
         }
     }
-
-    /*public DrawObject Objects
-    {
-        get
-        {
-            return schets.objects;
-        }
-        set
-        {
-            schets.objects = value;
-        }
-    }*/
 
     public Schets Schets
     { 
@@ -50,12 +39,11 @@ public class SchetsControl : UserControl
     private void teken(object o, PaintEventArgs pea)
     {   
         schets.Teken(pea.Graphics);
-        Console.WriteLine("teken teken");
     }
     private void veranderAfmeting(object o, EventArgs ea)
     {   
         schets.VeranderAfmeting(this.ClientSize);
-        this.Invalidate();
+        this.Refresh();
     }
     public Graphics MaakBitmapGraphics()
     {  
@@ -66,13 +54,14 @@ public class SchetsControl : UserControl
     public void Schoon(object o, EventArgs ea)
     {   
         schets.Schoon();
-        this.Invalidate();
+        this.Refresh();
+        Changes = false;
     }
     public void Roteer(object o, EventArgs ea)
     {   
         schets.VeranderAfmeting(new Size(this.ClientSize.Height, this.ClientSize.Width));
         schets.Roteer();
-        this.Invalidate();
+        this.Refresh();
     }
     public void VeranderKleur(object obj, EventArgs ea)
     {   
@@ -102,9 +91,11 @@ public class SchetsControl : UserControl
     public void Opslaan(object o, EventArgs ea)
     {
         schets.Opslaan();
+        Changes = false;
     }
     public void Inlezen(object o, EventArgs ea)
     {
         schets.Inlezen();
+        this.Refresh();
     }
 }

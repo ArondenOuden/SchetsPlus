@@ -44,6 +44,7 @@ public class SchetsWin : Form
                                 , new VolOvaalTool()
                                 , new TekstTool()
                                 , new GumTool()
+                                , new ImageTool()
                                 };
         String[] deKleuren = {"Black", "Red", "Green", "Blue", "Yellow", "Magenta", "Cyan", "Custom"};
 
@@ -84,6 +85,15 @@ public class SchetsWin : Form
         this.maakActieButtons(deKleuren);
         this.Resize += this.veranderAfmeting;
         this.veranderAfmeting(null, null);
+        this.FormClosing += (object o, FormClosingEventArgs e) =>
+        {
+            if (schetscontrol.Changes)
+            {
+                DialogResult dr = MessageBox.Show("Er zijn veranderingen die nog niet zijn opgeslagen, weet u zeker dat u door wilt gaan?", "Niet opgeslagen", MessageBoxButtons.YesNo);
+                if (dr == DialogResult.No)
+                    e.Cancel = true;
+            }
+        };
     }
 
     private void maakFileMenu()
@@ -122,12 +132,17 @@ public class SchetsWin : Form
 
     private void maakToolButtons(ICollection<ISchetsTool> tools)
     {
+        Panel p = new Panel();
+        p.AutoScroll = true;
+        p.Location = new Point(10, 10);
+        p.Size = new Size(65, this.ClientSize.Height - p.Location.Y);
+        this.Controls.Add(p);
+
         int t = 0;
         foreach (ISchetsTool tool in tools)
         {
             RadioButton b = new RadioButton();
             b.Appearance = Appearance.Button;
-            //b.Size = new Size(45, 62);
             b.Size = new Size(50, 62);
             
             b.Location = new Point(10, 10 + t * 62);
@@ -137,8 +152,9 @@ public class SchetsWin : Form
             b.TextAlign = ContentAlignment.TopCenter;
             b.ImageAlign = ContentAlignment.BottomCenter;
             b.Click += this.klikToolButton;
-            this.Controls.Add(b);
-            if (t == 0) b.Select();
+            p.Controls.Add(b);
+            if (t == 0) 
+                b.Select();
             t++;
         }
     }
@@ -173,17 +189,19 @@ public class SchetsWin : Form
                 
         Button exporteren = new Button(); paneel.Controls.Add(exporteren);
         exporteren.Text = "Exporteren"; 
-        exporteren.Location = new Point( 500, 0); 
+        exporteren.Location = new Point(520, 0); 
         exporteren.Click += schetscontrol.Exporteren;
 
         Button opslaan = new Button(); paneel.Controls.Add(opslaan);
         opslaan.Text = "Opslaan";
-        opslaan.Location = new Point(600, 0);
+        opslaan.Location = new Point(440, 0);
+        opslaan.Size = new Size(60, 25);
         opslaan.Click += schetscontrol.Opslaan;
 
         Button inlezen = new Button(); paneel.Controls.Add(inlezen);
         inlezen.Text = "Inlezen";
-        inlezen.Location = new Point(600, 0);
+        inlezen.Location = new Point(380, 0);
+        inlezen.Size = new Size(60, 25);
         inlezen.Click += schetscontrol.Inlezen;
     }
 }
